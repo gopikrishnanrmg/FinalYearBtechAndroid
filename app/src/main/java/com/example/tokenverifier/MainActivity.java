@@ -13,7 +13,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.TextHttpResponseHandler;
 import cz.msebera.android.httpclient.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 
+
 public class MainActivity extends AppCompatActivity {
     private static SecretKeySpec secretKey;
     private static byte[] key;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public EditText iptext;
     public int count=0;
     public static int temp1[][], temp2[][];
-    public String ipstring, encdecstring,share1="", hashshare2 ="",tablehash="",share2,s1="",hash,hashinhex,bankname;
+    public String ipstring, encdecstring,share1="",tablehash="",share2,s1="",hash,passwd="AM.EN.U4CSE15011",bankname;
     JSONArray tablejson;
     public boolean proc1;
     public AsyncHttpClient client = new AsyncHttpClient();
@@ -93,15 +93,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void updateText(String contents) {
+    private void updateText(String contents)  {
         int i=0,j;
         tablehash="";
         share1="";
         s1="";
         share2="";
+        /*
+        Inflater inflater = new Inflater();
+        inflater.setInput(contents, 0, contents.length());
+        byte[] result = new byte[1024];
+        int resultLength = inflater.inflate(result);
+        inflater.end();*/
 
-
-        encdecstring = contents;
+        Log.d("Encrypted content is",contents);
+        encdecstring = decrypt(contents,passwd);
 
         while(encdecstring.charAt(i)!=','){
             share1 += encdecstring.charAt(i);
@@ -209,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return binary.toString();
     }
-
+*/
 
 
     public static void setKey(String myKey)
@@ -249,7 +255,6 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    */
 
 
     public void checkshare() {
